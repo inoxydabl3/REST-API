@@ -11,4 +11,6 @@ public interface CustomerService {
 
     Optional<CustomerDTO> getCustomer(int customerId);
 
+    CustomerDTO createCustomer(CustomerDTO customer);
+
 }

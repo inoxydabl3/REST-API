@@ -31,4 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findById(customerId).map(mapper::toDto);
     }
 
+    @Override
+    public CustomerDTO createCustomer(CustomerDTO customer) {
+        return mapper.toDto(customerRepository.save(mapper.toEntity(customer)));
+    }
+
 }
