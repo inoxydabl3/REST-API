@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS todos;
+DROP TABLE IF EXISTS customers;
 
 CREATE TABLE customers (
-    id int auto_increment primary key,
-    name varchar(250),
-    surname varchar(250),
-    photo varchar(250)
+    id int not null auto_increment primary key,
+    name varchar(255) not null,
+    surname varchar(255) not null,
+    photo varchar(255)
 );
