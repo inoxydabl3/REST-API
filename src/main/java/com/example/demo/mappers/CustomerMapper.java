@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.mappers;
 
 import com.example.demo.dtos.customers.CustomerDTO;
 import com.example.demo.entities.CustomerEntity;
