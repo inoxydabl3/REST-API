@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.dtos.CustomerDTO;
+import com.example.demo.dtos.customers.CustomerDTO;
 import com.example.demo.exceptions.CustomerNotFoundException;
 import com.example.demo.exceptions.MissingCustomerFieldException;
 import com.example.demo.services.CustomerService;

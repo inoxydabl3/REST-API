@@ -1,6 +1,6 @@
 package com.example.demo.exceptions;
 
-import com.example.demo.dtos.CustomerDTO;
+import com.example.demo.dtos.customers.CustomerDTO;
 import lombok.Getter;
 
 public class MissingCustomerFieldException extends RuntimeException {

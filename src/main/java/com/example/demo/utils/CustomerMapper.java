@@ -1,7 +1,7 @@
 package com.example.demo.utils;
 
-import com.example.demo.dtos.CustomerDTO;
-import com.example.demo.entities.Customer;
+import com.example.demo.dtos.customers.CustomerDTO;
+import com.example.demo.entities.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -10,8 +10,8 @@ import org.mapstruct.MappingConstants;
 public interface CustomerMapper {
 
     @Mapping(target = "id", ignore = true)
-    Customer toEntity(CustomerDTO source);
+    CustomerEntity toEntity(CustomerDTO source);
 
-    CustomerDTO toDto(Customer source);
+    CustomerDTO toDto(CustomerEntity source);
 
 }

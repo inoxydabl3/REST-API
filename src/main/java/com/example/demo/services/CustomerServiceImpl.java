@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.CustomerDTO;
+import com.example.demo.dtos.customers.CustomerDTO;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.utils.CustomerMapper;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.demo.controllers.errorhandlers;
 
-import com.example.demo.dtos.ErrorResponse;
+import com.example.demo.dtos.customers.ErrorResponseDTO;
 import com.example.demo.exceptions.CustomerNotFoundException;
 import com.example.demo.exceptions.MissingCustomerFieldException;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ public class CustomerErrorHandler {
     @ResponseBody
     @ExceptionHandler(MissingCustomerFieldException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ErrorResponse todoNotValidHandler(MissingCustomerFieldException e) {
-        return new ErrorResponse(e.getMessage(), e.getCustomer());
+    ErrorResponseDTO todoNotValidHandler(MissingCustomerFieldException e) {
+        return new ErrorResponseDTO(e.getMessage(), e.getCustomer());
     }
 
 }
