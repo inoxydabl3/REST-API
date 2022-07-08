@@ -1,4 +1,4 @@
-package com.example.demo.controllers.errorhandlers;
+package com.example.demo.errorhandlers;
 
 import com.example.demo.dtos.ErrorResponseDTO;
 import com.example.demo.exceptions.CustomerNotFoundException;
