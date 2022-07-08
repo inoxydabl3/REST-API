@@ -2,8 +2,10 @@ package com.example.demo.controllers;
 
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.exceptions.MissingUserFieldException;
+import com.example.demo.exceptions.RoleNotValidException;
 import com.example.demo.exceptions.UserNotFoundException;
 import com.example.demo.services.UserSerivce;
+import com.example.demo.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +41,24 @@ public class UserController {
     }
 
     @PatchMapping(path = "/{userId}")
-    public String updateUser(@PathVariable int userId) {
-        throw new UnsupportedOperationException();
+    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO user) {
+        return userSerivce.updateUser(userId, user).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @DeleteMapping(path = "/{userId}")
-    public String deleteCustomer(@PathVariable int userId) {
-        throw new UnsupportedOperationException();
+    public UserDTO deleteCustomer(@PathVariable int userId) {
+        return userSerivce.deleteUser(userId).orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
+    @PatchMapping(path = "/{userId}/status/{status}")
+    public UserDTO changeAdminStatus(@PathVariable int userId, @PathVariable String status) {
+        Role role;
+        try {
+            role = Role.valueOf(status.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new RoleNotValidException(status);
+        }
+        return userSerivce.changeStats(userId, role).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
 }

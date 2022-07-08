@@ -1,9 +1,12 @@
 package com.example.demo.errorhandlers;
 
+import com.example.demo.dtos.CustomerDTO;
 import com.example.demo.dtos.ErrorResponseDTO;
+import com.example.demo.dtos.UserDTO;
 import com.example.demo.exceptions.CustomerNotFoundException;
 import com.example.demo.exceptions.MissingCustomerFieldException;
 import com.example.demo.exceptions.MissingUserFieldException;
+import com.example.demo.exceptions.RoleNotValidException;
 import com.example.demo.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,15 +27,22 @@ public class CustomerErrorHandler {
     @ResponseBody
     @ExceptionHandler(MissingCustomerFieldException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ErrorResponseDTO<?> missingFieldHandler(MissingCustomerFieldException e) {
+    ErrorResponseDTO<CustomerDTO> missingFieldHandler(MissingCustomerFieldException e) {
         return new ErrorResponseDTO<>(e.getMessage(), e.getCustomer());
     }
 
     @ResponseBody
     @ExceptionHandler(MissingUserFieldException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ErrorResponseDTO<?> missingFieldHandler(MissingUserFieldException e) {
+    ErrorResponseDTO<UserDTO> missingFieldHandler(MissingUserFieldException e) {
         return new ErrorResponseDTO<>(e.getMessage(), e.getUser());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(RoleNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String roleNotValid(RoleNotValidException e) {
+        return e.getMessage();
     }
 
 }

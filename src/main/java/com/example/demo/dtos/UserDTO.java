@@ -8,7 +8,7 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserDTO implements Serializable {

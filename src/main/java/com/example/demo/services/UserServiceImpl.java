@@ -5,6 +5,7 @@ import com.example.demo.entities.UserEntity;
 import com.example.demo.mappers.UserMapper;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,11 +30,43 @@ public class UserServiceImpl implements UserSerivce {
     }
 
     @Override
-    public UserDTO createUser(UserDTO dto) {
-        UserEntity entity = new UserEntity();
-        entity.setUsername(dto.getUsername());
-        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-        entity.setRole(roleRepository.findByRole(dto.getRole().name()));
+    public UserDTO createUser(UserDTO user) {
+        UserEntity entity = mapper.toEntity(user.toBuilder().password(passwordEncoder.encode(user.getPassword())).build(),
+                roleRepository.findByRole(user.getRole().name()));
         return mapper.toDto(userRepository.save(entity));
     }
+
+    @Override
+    public Optional<UserDTO> updateUser(int userId, UserDTO user) {
+        Optional<UserEntity> entityToUpdate = userRepository.findById(userId);
+        if (entityToUpdate.isPresent()) {
+            if (user.getPassword() != null) {
+                user = user.toBuilder().password(passwordEncoder.encode(user.getPassword())).build();
+            }
+            entityToUpdate = Optional.of(userRepository.save(mapper.update(entityToUpdate.get(), user,
+                    roleRepository.findByRole(user.getRole().name()))));
+        }
+        return entityToUpdate.map(mapper::toDto);
+    }
+
+    @Override
+    public Optional<UserDTO> deleteUser(int userId) {
+        Optional<UserEntity> entityToDelete = userRepository.findById(userId);
+        if (entityToDelete.isPresent()) {
+            userRepository.deleteById(userId);
+        }
+        return entityToDelete.map(mapper::toDto);
+    }
+
+    @Override
+    public Optional<UserDTO> changeStats(int userId, Role role) {
+        Optional<UserEntity> entity = userRepository.findById(userId);
+        if (entity.isPresent() && !role.name().equals(entity.get().getRole().getRole())) {
+            UserEntity e = entity.get();
+            e.setRole(roleRepository.findByRole(role.name()));
+            entity = Optional.of(userRepository.save(e));
+        }
+        return entity.map(mapper::toDto);
+    }
+
 }
