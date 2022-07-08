@@ -45,13 +45,14 @@ public class CustomerController {
     }
 
     @PatchMapping(path = "/{customerId}")
-    public CustomerDTO updateCustomer(@PathVariable int customerId) {
-        throw new UnsupportedOperationException();
+    public CustomerDTO updateCustomer(@PathVariable int customerId, @RequestBody CustomerDTO customer) {
+        return service.updateCustomer(customerId, customer).orElseThrow(
+                () -> new CustomerNotFoundException(customerId));
     }
 
     @DeleteMapping(path = "/{customerId}")
     public CustomerDTO deleteCustomer(@PathVariable int customerId) {
-        throw new UnsupportedOperationException();
+        return service.deleteCustomer(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
 }

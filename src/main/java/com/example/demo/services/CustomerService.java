@@ -13,4 +13,8 @@ public interface CustomerService {
 
     CustomerDTO createCustomer(CustomerDTO customer);
 
+    Optional<CustomerDTO> updateCustomer(int customerId, CustomerDTO newCustomerData);
+
+    Optional<CustomerDTO> deleteCustomer(int customerId);
+
 }
