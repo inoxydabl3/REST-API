@@ -1,4 +1,4 @@
-package com.example.demo.dtos.customers;
+package com.example.demo.dtos;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

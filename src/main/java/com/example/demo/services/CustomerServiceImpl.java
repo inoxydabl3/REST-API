@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.customers.CustomerDTO;
+import com.example.demo.dtos.CustomerDTO;
+import com.example.demo.mappers.CustomerMapper;
 import com.example.demo.repositories.CustomerRepository;
-import com.example.demo.utils.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
