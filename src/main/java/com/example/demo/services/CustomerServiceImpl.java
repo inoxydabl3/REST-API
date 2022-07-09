@@ -21,8 +21,8 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper mapper;
 
     @Override
-    public List<CustomerDTO> getAllCustomers() {
-        return customerRepository.findAll().stream()
+    public List<CustomerDTO> getAllCustomersSummary() {
+        return customerRepository.findAllBy().stream()
                 .map(mapper::toDto)
                 .collect(Collectors.toUnmodifiableList());
     }

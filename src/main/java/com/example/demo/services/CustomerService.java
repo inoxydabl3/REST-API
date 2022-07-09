@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    List<CustomerDTO> getAllCustomers();
+    List<CustomerDTO> getAllCustomersSummary();
 
     Optional<CustomerDTO> getCustomer(int customerId);
 

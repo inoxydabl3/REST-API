@@ -28,7 +28,7 @@ public class CustomerController {
 
     @GetMapping
     public List<CustomerDTO> getAllCustomers() {
-        return service.getAllCustomers();
+        return service.getAllCustomersSummary();
     }
 
     @GetMapping(path = "/{customerId}")
