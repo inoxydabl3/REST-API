@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<version>1.0.0</version>
+	<name>REST API</name>
 	<description>API Backend</description>
 	<properties>
 		<java.version>11</java.version>
