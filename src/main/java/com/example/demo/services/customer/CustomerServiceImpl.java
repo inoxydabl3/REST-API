@@ -11,13 +11,11 @@ import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.image.ImageStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomerServiceImpl implements CustomerService {
 
@@ -28,6 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerMapper mapper;
 
+    private final String imageEndpoint;
+
     @Override
     public List<CustomerDTO> getAllCustomersSummary() {
         return customerRepository.findAllBy().stream()
@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<CustomerDTO> getCustomer(int customerId) {
-        return customerRepository.findById(customerId).map(mapper::toDto);
+        return customerRepository.findById(customerId).map(e -> mapper.toDto(e, imageEndpoint));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
         UserEntity user = userRepository.findByUsername(customerData.getUserRef());
         // Create customer entity
         CustomerEntity customerEntity = mapper.toEntity(customerData, photo, user);
-        return mapper.toDto(customerRepository.save(customerEntity));
+        return mapper.toDto(customerRepository.save(customerEntity), imageEndpoint);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
             entityToUpdate = Optional.of(customerRepository.save(mapper.updateEntity(
                     entityToUpdate.get(), customerData, photo, user)));
         }
-        return entityToUpdate.map(mapper::toDto);
+        return entityToUpdate.map(e -> mapper.toDto(e, imageEndpoint));
     }
 
     @Override
@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (entityToDelete.isPresent()) {
             customerRepository.deleteById(customerId);
         }
-        return entityToDelete.map(mapper::toDto);
+        return entityToDelete.map(e -> mapper.toDto(e, imageEndpoint));
     }
 
 }

@@ -1,12 +1,10 @@
 package com.example.demo.services.image;
 
 import com.example.demo.exceptions.ImageStorageException;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,13 +14,13 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
 @Slf4j
 public class ImageStorageServiceImpl implements ImageStorageService {
 
     private final Path imagesPath;
 
-    public ImageStorageServiceImpl(@Value("${app.imagesPath}") @NonNull Path imagesPath) throws ImageStorageException {
+    @Autowired
+    public ImageStorageServiceImpl(Path imagesPath) throws ImageStorageException {
         this.imagesPath = imagesPath;
         try {
             Files.createDirectories(imagesPath);

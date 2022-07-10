@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/customers")
+@RequestMapping(path = "${app.customersEndpoint}")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomerController {
 

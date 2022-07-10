@@ -21,3 +21,5 @@ server:
 app:
   imagesPath: images
   imagesEndpoint: /images
+  customersEndpoint: /customers
+  usersEndpoint: /users
