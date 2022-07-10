@@ -17,7 +17,7 @@ public class CustomerDTO implements Serializable {
     private Integer id;
     private String name;
     private String surname;
-    private String photo;
+    private String photoUrl;
     private String userRef;
 
 }

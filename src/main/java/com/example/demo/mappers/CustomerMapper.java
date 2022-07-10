@@ -18,7 +18,7 @@ public interface CustomerMapper {
 
     CustomerDTO toDto(CustomerSummary source);
 
-    @Mapping(target = "photo", source = "photo", qualifiedByName = "photoUrl")
+    @Mapping(target = "photoUrl", source = "photo", qualifiedByName = "photoUrl")
     @Mapping(target = "userRef", source = "user.username")
     CustomerDTO toDto(CustomerEntity entity);
 
