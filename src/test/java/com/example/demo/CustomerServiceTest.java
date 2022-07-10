@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +60,12 @@ class CustomerServiceTest {
 	private final CustomerService service;
 
 	@AfterAll
-	static void remove(@Value("${imagesPath}") Path image) {
+	static void remove(@Value("${app.imagesPath}") Path image) {
 		FileSystemUtils.deleteRecursively(image.toFile());
 	}
 
 	@Test
+	@Order(1)
 	void contextLoads() {
 		assertNotNull(service);
 		log.info("Context have loaded successfully");
@@ -110,7 +112,7 @@ class CustomerServiceTest {
 				.matches(c -> name.equals(c.getName()), "name")
 				.matches(c -> surname.equals(c.getSurname()), "surname")
 				.matches(c -> userRef.equals(c.getUserRef()), "userRef")
-				.matches(c -> c.getPhoto() == null, "photo");
+				.matches(c -> c.getPhotoUrl() == null, "photo");
 		log.info("Customer created successfully");
 		log.info("{}", GSON.toJson(customer));
 	}
@@ -132,7 +134,7 @@ class CustomerServiceTest {
 				.matches(c -> name.equals(c.getName()), "name")
 				.matches(c -> surname.equals(c.getSurname()), "surname")
 				.matches(c -> userRef.equals(c.getUserRef()), "userRef")
-				.matches(c -> c.getPhoto() != null, "photo");
+				.matches(c -> c.getPhotoUrl() != null, "photo");
 		log.info("Customer created successfully");
 		log.info("{}", GSON.toJson(customer));
 	}
@@ -178,7 +180,7 @@ class CustomerServiceTest {
 				.matches(c -> name.equals(c.getName()), "name")
 				.matches(c -> surname.equals(c.getSurname()), "surname")
 				.matches(c -> userRef.equals(c.getUserRef()), "userRef")
-				.matches(c -> c.getPhoto() != null, "photo");
+				.matches(c -> c.getPhotoUrl() != null, "photo");
 		log.info("Customer updated successfully");
 		log.info("{}", GSON.toJson(customer));
 	}
