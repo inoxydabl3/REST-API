@@ -1,5 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.user;
 
+import com.example.demo.dtos.UserCreationDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.entities.UserEntity;
 import com.example.demo.mappers.UserMapper;
@@ -30,20 +31,20 @@ public class UserServiceImpl implements UserSerivce {
     }
 
     @Override
-    public UserDTO createUser(UserDTO user) {
+    public UserDTO createUser(UserCreationDTO user) {
         UserEntity entity = mapper.toEntity(user.toBuilder().password(passwordEncoder.encode(user.getPassword())).build(),
                 roleRepository.findByRole(user.getRole().name()));
         return mapper.toDto(userRepository.save(entity));
     }
 
     @Override
-    public Optional<UserDTO> updateUser(int userId, UserDTO user) {
+    public Optional<UserDTO> updateUser(int userId, UserCreationDTO user) {
         Optional<UserEntity> entityToUpdate = userRepository.findById(userId);
         if (entityToUpdate.isPresent()) {
             if (user.getPassword() != null) {
                 user = user.toBuilder().password(passwordEncoder.encode(user.getPassword())).build();
             }
-            entityToUpdate = Optional.of(userRepository.save(mapper.update(entityToUpdate.get(), user,
+            entityToUpdate = Optional.of(userRepository.save(mapper.updateUser(entityToUpdate.get(), user,
                     roleRepository.findByRole(user.getRole().name()))));
         }
         return entityToUpdate.map(mapper::toDto);

@@ -1,5 +1,6 @@
 package com.example.demo.mappers;
 
+import com.example.demo.dtos.UserCreationDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.entities.RoleEntity;
 import com.example.demo.entities.UserEntity;
@@ -13,15 +14,15 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "role", source = "role")
-    UserEntity toEntity(UserDTO source, RoleEntity role);
-
     @Mapping(target = "role", source = "role.role")
-    UserDTO toDto(UserEntity source);
+    UserDTO toDto(UserEntity entity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", source = "role")
-    UserEntity update(@MappingTarget UserEntity entity, UserDTO dto, RoleEntity role);
+    UserEntity toEntity(UserCreationDTO entity, RoleEntity role);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", source = "role")
+    UserEntity updateUser(@MappingTarget UserEntity entity, UserCreationDTO dto, RoleEntity role);
 
 }

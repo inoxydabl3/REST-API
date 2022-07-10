@@ -1,7 +1,5 @@
-package com.example.demo.services;
+package com.example.demo.services.image;
 
-import com.example.demo.exceptions.ImageContentTypeException;
-import com.example.demo.exceptions.ImageNotFoundException;
 import com.example.demo.exceptions.ImageStorageException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +13,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,7 +22,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
     private final Path imagesPath;
 
-    public ImageStorageServiceImpl(@Value("${imagesPath}") @NonNull Path imagesPath) {
+    public ImageStorageServiceImpl(@Value("${app.imagesPath}") @NonNull Path imagesPath) throws ImageStorageException {
         this.imagesPath = imagesPath;
         try {
             Files.createDirectories(imagesPath);
@@ -56,12 +55,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     }
 
     @Override
-    public String storeImage(MultipartFile image) {
-        String contentType = image.getContentType();
-        if (contentType == null || !contentType.startsWith("image/")) {
-            throw new ImageContentTypeException(String.format("File '%s' is NOT an image: ",
-                    image.getOriginalFilename()));
-        }
+    public String storeImage(MultipartFile image) throws ImageStorageException {
         String imageName = createUniqueName(image.getOriginalFilename());
         Path targetLocation = imagesPath.resolve(imageName);
         try {
@@ -74,18 +68,17 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     }
 
     @Override
-    public Resource loadImageAsResource(String imageName) {
+    public Optional<Resource> loadImageAsResource(String imageName) {
         try {
             Path imagePath = imagesPath.resolve(imageName).normalize();
             Resource resource = new UrlResource(imagePath.toUri());
             if (resource.exists()) {
-                return resource;
-            } else {
-                throw new ImageNotFoundException(String.format("Image not found %s", imageName));
+                return Optional.of(resource);
             }
         } catch (MalformedURLException e) {
-            throw new ImageNotFoundException(String.format("Image not found %s", imageName), e);
+            log.error(String.format("Image not found %s", imageName), e);
         }
+        return Optional.empty();
     }
 
     public boolean deleteImage(String imageName) {

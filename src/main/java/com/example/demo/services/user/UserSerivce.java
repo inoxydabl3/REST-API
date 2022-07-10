@@ -1,5 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.user;
 
+import com.example.demo.dtos.UserCreationDTO;
 import com.example.demo.dtos.UserDTO;
 import com.example.demo.utils.Role;
 
@@ -9,9 +10,9 @@ public interface UserSerivce {
 
     Optional<UserDTO> getUser(int userId);
 
-    UserDTO createUser(UserDTO user);
+    UserDTO createUser(UserCreationDTO user);
 
-    Optional<UserDTO> updateUser(int userId, UserDTO user);
+    Optional<UserDTO> updateUser(int userId, UserCreationDTO user);
 
     Optional<UserDTO> deleteUser(int userId);
 

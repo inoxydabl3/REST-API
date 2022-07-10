@@ -1,10 +1,11 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dtos.UserCreationDTO;
 import com.example.demo.dtos.UserDTO;
-import com.example.demo.exceptions.MissingUserFieldException;
-import com.example.demo.exceptions.RoleNotValidException;
-import com.example.demo.exceptions.UserNotFoundException;
-import com.example.demo.services.UserSerivce;
+import com.example.demo.exceptions.responsestatus.MissingFieldException;
+import com.example.demo.exceptions.responsestatus.RoleNotValidException;
+import com.example.demo.exceptions.responsestatus.UserNotFoundException;
+import com.example.demo.services.user.UserSerivce;
 import com.example.demo.utils.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,15 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public UserDTO createUser(@RequestBody UserDTO user) {
+    public UserDTO createUser(@RequestBody UserCreationDTO user) {
         if (user.getUsername() == null || user.getPassword() == null || user.getRole() == null) {
-            throw new MissingUserFieldException("Request params 'username','password' and 'role' are required.", user);
+            throw new MissingFieldException("Request params 'username','password' and 'role' are required.");
         }
         return userSerivce.createUser(user);
     }
 
     @PatchMapping(path = "/{userId}")
-    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserDTO user) {
+    public UserDTO updateUser(@PathVariable int userId, @RequestBody UserCreationDTO user) {
         return userSerivce.updateUser(userId, user).orElseThrow(() -> new UserNotFoundException(userId));
     }
 

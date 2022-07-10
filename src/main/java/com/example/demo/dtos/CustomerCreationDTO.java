@@ -4,20 +4,17 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.Serializable;
-
-@Builder
+@Builder(toBuilder = true)
 @Getter
-@ToString
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CustomerDTO implements Serializable {
+public class CustomerCreationDTO {
 
-    private Integer id;
     private String name;
     private String surname;
-    private String photo;
+    private MultipartFile photo;
+    // Reference to the user who modified it
     private String userRef;
 
 }
