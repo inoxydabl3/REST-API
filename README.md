@@ -1,13 +1,14 @@
 ## Introduction
 
-This is a simple Spring boot application that manage through REST API customer data for a small shop.
+This is a simple Spring boot application that use REST API to manage the customer data for a small shop.
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
+- Git
 - OpenJDK >= 11
 
 ### Installation
@@ -20,7 +21,7 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    ./mvnw clean install
    ```
-3. Run the application. Using our IDE we can create a launcher or directly run it using the main method in the class
+3. Run the application. Using our IDE we can create a launcher, or directly run it by executing the main method in the class
    _com.example.demo.DemoApplication_.
 
 After that the application is running on the 8080 port. You can change the port by passing _JVM Arguments_:
@@ -29,7 +30,7 @@ After that the application is running on the 8080 port. You can change the port 
 
 ## APIs Documentation with Swagger
 
-This project is using Swagger that It provides a user interface to access our RESTful web services via the web browser.
+This project is using Swagger that provides a user interface to access our RESTful web services via the web browser.
 
 Swagger main page is - http://localhost:8080/swagger-ui.html
 
@@ -64,9 +65,9 @@ We can execute the following command to run the image
    ```
 You'll notice a few flags being used. Here's some more info on them:
 
-* -d - run the container in detached mode (in the background)
-* -p 8080:8080 - map port 8080 of the host to port 8080 in the container
-* demo:1.0.0 - the image to use
+- -d - run the container in detached mode (in the background)
+- -p 8080:8080 - map port 8080 of the host to port 8080 in the container
+- demo:1.0.0 - the image to use
 
 Finally, if we want we can list the running containers
    ```sh
