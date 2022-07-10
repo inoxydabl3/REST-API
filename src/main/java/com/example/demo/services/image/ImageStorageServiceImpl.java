@@ -81,6 +81,12 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         return Optional.empty();
     }
 
+    @Override
+    public Path getImagesPath() {
+        return imagesPath;
+    }
+
+    @Override
     public boolean deleteImage(String imageName) {
         try {
             Files.delete(imagesPath.resolve(imageName));

@@ -4,6 +4,7 @@ import com.example.demo.exceptions.ImageStorageException;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 public interface ImageStorageService {
@@ -12,6 +13,8 @@ public interface ImageStorageService {
 
     Optional<Resource> loadImageAsResource(String imageName);
 
-    public boolean deleteImage(String imageName);
+    Path getImagesPath();
+
+    boolean deleteImage(String imageName);
 
 }
