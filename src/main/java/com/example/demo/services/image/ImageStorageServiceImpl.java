@@ -1,8 +1,8 @@
 package com.example.demo.services.image;
 
 import com.example.demo.exceptions.ImageStorageException;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,9 +17,8 @@ import java.util.UUID;
 @Slf4j
 public class ImageStorageServiceImpl implements ImageStorageService {
 
-    private final Path imagesPath;
+    private final @NonNull Path imagesPath;
 
-    @Autowired
     public ImageStorageServiceImpl(Path imagesPath) throws ImageStorageException {
         this.imagesPath = imagesPath;
         try {

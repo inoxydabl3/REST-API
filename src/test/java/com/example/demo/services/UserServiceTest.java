@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import com.example.demo.dtos.UserCreationDTO;
 import com.example.demo.dtos.UserDTO;
-import com.example.demo.services.user.UserSerivce;
+import com.example.demo.services.user.UserService;
 import com.example.demo.utils.Role;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -43,7 +43,7 @@ class UserServiceTest {
         return RND.nextInt(UPPER_BOUND - LOWER_BOUND) + LOWER_BOUND;
     }
 
-    private final UserSerivce service;
+    private final UserService service;
     private final PasswordEncoder passwordEncoder;
 
     @Test

@@ -9,24 +9,24 @@ import com.example.demo.mappers.CustomerMapper;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.image.ImageStorageService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    private final ImageStorageService imageStorageService;
+    private final @NonNull ImageStorageService imageStorageService;
 
-    private final CustomerRepository customerRepository;
-    private final UserRepository userRepository;
+    private final @NonNull CustomerRepository customerRepository;
+    private final @NonNull UserRepository userRepository;
 
-    private final CustomerMapper mapper;
+    private final @NonNull CustomerMapper mapper;
 
-    private final String imageEndpoint;
+    private final @NonNull String imageEndpoint;
 
     @Override
     public List<CustomerDTO> getAllCustomersSummary() {

@@ -7,21 +7,21 @@ import com.example.demo.mappers.UserMapper;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.utils.Role;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserServiceImpl implements UserSerivce {
+@RequiredArgsConstructor
+public class UserServiceImpl implements UserService {
 
-    private final PasswordEncoder passwordEncoder;
+    private final @NonNull PasswordEncoder passwordEncoder;
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final @NonNull UserRepository userRepository;
+    private final @NonNull RoleRepository roleRepository;
 
-    private final UserMapper mapper;
+    private final @NonNull UserMapper mapper;
 
     @Override
     public Optional<UserDTO> getUser(int userId) {

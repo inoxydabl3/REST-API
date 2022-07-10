@@ -10,17 +10,16 @@ import com.example.demo.services.customer.CustomerService;
 import com.example.demo.services.customer.CustomerServiceImpl;
 import com.example.demo.services.image.ImageStorageService;
 import com.example.demo.services.image.ImageStorageServiceImpl;
-import com.example.demo.services.user.UserSerivce;
+import com.example.demo.services.user.UserService;
 import com.example.demo.services.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class SerivceConfig {
+@RequiredArgsConstructor
+public class ServicesConfig {
 
     private final AppProperties properties;
 
@@ -35,7 +34,7 @@ public class SerivceConfig {
     }
 
     @Bean
-    public UserSerivce userSerivce(PasswordEncoder passwordEncoder, UserMapper mapper) {
+    public UserService userService(PasswordEncoder passwordEncoder, UserMapper mapper) {
         return new UserServiceImpl(passwordEncoder, userRepository, roleRepository, mapper);
     }
 

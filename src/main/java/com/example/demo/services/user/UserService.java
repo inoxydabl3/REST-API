@@ -6,7 +6,7 @@ import com.example.demo.utils.Role;
 
 import java.util.Optional;
 
-public interface UserSerivce {
+public interface UserService {
 
     Optional<UserDTO> getUser(int userId);
 

@@ -2,6 +2,7 @@ package com.example.demo.configurations;
 
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.database.DatabaseUserDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,10 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     public static final String ADMIN = "ADMIN";
     public static final String USER = "USER";
+
+    private final AppProperties appProperties;
 
     @Bean
     public UserDetailsService databaseUserDetailsService(
@@ -28,8 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/customers/**").hasAnyAuthority(ADMIN, USER)
-                .antMatchers("/users/**").hasAnyAuthority(ADMIN)
+                .antMatchers(appProperties.getCustomersEndpoint().concat("/**")).hasAnyAuthority(ADMIN, USER)
+                .antMatchers(appProperties.getUsersEndpoint().concat("/**")).hasAnyAuthority(ADMIN)
                 .and()
                 .httpBasic();
         // xss prevention

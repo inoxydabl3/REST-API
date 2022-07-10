@@ -1,17 +1,14 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.image;
 
 import com.example.demo.exceptions.responsestatus.ImageNotFoundException;
 import com.example.demo.services.image.ImageStorageService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +17,13 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping(path = "${app.imagesEndpoint}")
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ImageController {
+@RequiredArgsConstructor
+public class ImageControllerImpl implements ImageController {
 
-    private final ImageStorageService imageStorageService;
+    private final @NonNull ImageStorageService imageStorageService;
 
-    @GetMapping(path = "/{imageName}")
-    public ResponseEntity<Resource> imageFile(@PathVariable String imageName, HttpServletRequest request)
+    @Override
+    public ResponseEntity<Resource> imageFile(String imageName, HttpServletRequest request)
             throws IOException, ImageNotFoundException {
         Optional<Resource> maybeResource = imageStorageService.loadImageAsResource(imageName);
         if (maybeResource.isEmpty()) {

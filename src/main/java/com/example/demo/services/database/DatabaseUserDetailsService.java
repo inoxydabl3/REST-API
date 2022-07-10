@@ -2,16 +2,16 @@ package com.example.demo.services.database;
 
 import com.example.demo.entities.UserEntity;
 import com.example.demo.repositories.UserRepository;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor
 public class DatabaseUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final @NonNull UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
