@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,6 +18,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 import java.util.Random;
@@ -26,6 +27,7 @@ import java.util.Random;
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@ActiveProfiles("test")
 class UserServiceTest {
 
     private static final Random RND = new Random();
