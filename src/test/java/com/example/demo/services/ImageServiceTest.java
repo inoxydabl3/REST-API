@@ -40,7 +40,7 @@ class ImageServiceTest {
 	private final ImageStorageService service;
 
 	@AfterAll
-	static void remove(@Value("${app.imagesPath}") Path image) {
+	static void destroy(@Value("${app.imagesPath}") Path image) {
 		FileSystemUtils.deleteRecursively(image.toFile());
 	}
 
