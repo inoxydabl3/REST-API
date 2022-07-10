@@ -5,11 +5,11 @@ import com.example.demo.dtos.CustomerDTO;
 import com.example.demo.exceptions.ImageStorageException;
 import com.example.demo.exceptions.responsestatus.CustomerNotFoundException;
 import com.example.demo.exceptions.responsestatus.ImageContentTypeException;
-import com.example.demo.exceptions.responsestatus.MissingFieldException;
 import com.example.demo.services.customer.CustomerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -31,18 +31,21 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     @Override
-    public CustomerDTO createCustomer(CustomerCreationDTO customer, HttpServletRequest request)
+    public CustomerDTO createCustomer(String name, String surname, MultipartFile photo, HttpServletRequest request)
             throws ImageStorageException {
-        validations(customer);
-        CustomerCreationDTO customerWithUserRef = customer.toBuilder()
+        validatePhoto(photo);
+        CustomerCreationDTO customerWithUserRef = CustomerCreationDTO.builder()
+                .name(name).surname(surname).photo(photo)
                 .userRef(request.getUserPrincipal().getName()).build();
         return customerService.createCustomer(customerWithUserRef);
     }
 
     @Override
-    public CustomerDTO updateCustomer(int customerId, CustomerCreationDTO customer, HttpServletRequest request)
-            throws ImageStorageException {
-        CustomerCreationDTO customerWithUserRef = customer.toBuilder()
+    public CustomerDTO updateCustomer(int customerId, String name, String surname, MultipartFile photo,
+            HttpServletRequest request) throws ImageStorageException {
+        validatePhoto(photo);
+        CustomerCreationDTO customerWithUserRef = CustomerCreationDTO.builder()
+                .name(name).surname(surname).photo(photo)
                 .userRef(request.getUserPrincipal().getName()).build();
         return this.customerService.updateCustomer(customerId, customerWithUserRef).orElseThrow(
                 () -> new CustomerNotFoundException(customerId));
@@ -53,15 +56,12 @@ public class CustomerControllerImpl implements CustomerController {
         return customerService.deleteCustomer(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
     }
 
-    private void validations(CustomerCreationDTO customer) {
-        if (customer.getName() == null || customer.getSurname() == null) {
-            throw new MissingFieldException("Request params 'name' and 'surname' are required.");
-        }
-        if (customer.getPhoto() != null) {
-            String contentType = customer.getPhoto().getContentType();
+    private void validatePhoto(MultipartFile photo) {
+        if (photo != null) {
+            String contentType = photo.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {
                 throw new ImageContentTypeException(String.format("File '%s' is NOT an image: ",
-                        customer.getPhoto().getOriginalFilename()));
+                        photo.getOriginalFilename()));
             }
         }
     }
