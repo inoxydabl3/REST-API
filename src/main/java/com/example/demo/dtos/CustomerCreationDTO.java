@@ -1,5 +1,6 @@
 package com.example.demo.dtos;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,7 @@ public class CustomerCreationDTO {
     private String surname;
     private MultipartFile photo;
     // Reference to the user who modified it
+    @ApiModelProperty(hidden = true)
     private String userRef;
 
 }
