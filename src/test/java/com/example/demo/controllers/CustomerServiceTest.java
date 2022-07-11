@@ -160,7 +160,7 @@ class CustomerServiceTest {
         int customerId = generateRandomInt();
         String url = properties.getCustomersEndpoint().concat("/").concat(String.valueOf(customerId));
         mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON).with(httpBasic(USER, PASSWORD)))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value())).andReturn();
+                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
@@ -181,17 +181,17 @@ class CustomerServiceTest {
     void createWithoutParams() throws Exception {
         String url = properties.getCustomersEndpoint();
         mockMvc.perform(post(url).accept(MediaType.APPLICATION_JSON).with(httpBasic(ADMIN, PASSWORD)))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value())).andReturn();
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
     @Test
     void createMissingParam() throws Exception {
-        String name = "createWithoutPhoto";
+        String name = "createMissingParam";
         String url = properties.getCustomersEndpoint();
         mockMvc.perform(MockMvcRequestBuilders.multipart(URI.create(url))
                         .param(NAME, name)
                         .with(httpBasic(USER, PASSWORD)))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value())).andReturn();
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
     @Test
@@ -229,7 +229,7 @@ class CustomerServiceTest {
                         .param(NAME, name)
                         .param(SURNAME, surname)
                         .with(httpBasic(USER, PASSWORD)))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value())).andReturn();
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
     @Test
@@ -304,7 +304,7 @@ class CustomerServiceTest {
                         .param(NAME, name)
                         .param(SURNAME, surname)
                         .with(httpBasic(USER, PASSWORD)))
-                .andExpect(status().is(HttpStatus.BAD_REQUEST.value())).andReturn();
+                .andExpect(status().is(HttpStatus.BAD_REQUEST.value()));
     }
 
     @Test
@@ -342,7 +342,7 @@ class CustomerServiceTest {
         mockMvc.perform(MockMvcRequestBuilders.multipart(HttpMethod.PATCH, URI.create(url))
                         .param(NAME, name)
                         .with(httpBasic(USER, PASSWORD)))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value())).andReturn();
+                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
     @Test
@@ -355,8 +355,7 @@ class CustomerServiceTest {
     @Test
     void deleteUnauthorized() throws Exception {
         String url = properties.getCustomersEndpoint().concat("/").concat(String.valueOf(DELETED_CUSTOMER));
-        mockMvc.perform(delete(url).accept(MediaType.APPLICATION_JSON)
-                        .with(httpBasic(FOO, PASSWORD)))
+        mockMvc.perform(delete(url).accept(MediaType.APPLICATION_JSON).with(httpBasic(FOO, PASSWORD)))
                 .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     }
 
@@ -379,9 +378,8 @@ class CustomerServiceTest {
     void deleteNonExisting() throws Exception {
         int customerId = generateRandomInt();
         String url = properties.getCustomersEndpoint().concat("/").concat(String.valueOf(customerId));
-        mockMvc.perform(delete(url).accept(MediaType.APPLICATION_JSON)
-                        .with(httpBasic(ADMIN, PASSWORD)))
-                .andExpect(status().is(HttpStatus.NOT_FOUND.value())).andReturn();
+        mockMvc.perform(delete(url).accept(MediaType.APPLICATION_JSON).with(httpBasic(ADMIN, PASSWORD)))
+                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
 
 }
