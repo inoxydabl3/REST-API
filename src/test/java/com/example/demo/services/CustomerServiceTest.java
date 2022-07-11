@@ -19,6 +19,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.FileSystemUtils;
@@ -51,7 +52,6 @@ class CustomerServiceTest {
 	private static final int DELETED_CUSTOMER = 2;
 
 	private static final String PHOTO_NAME = "photo.jpg";
-	private static final String CONTENT_TYPE = "image/jpeg";
 
 	private static int generateRandomInt() {
 		return RND.nextInt(UPPER_BOUND - LOWER_BOUND) + LOWER_BOUND;
@@ -119,7 +119,7 @@ class CustomerServiceTest {
 
 	@Test
 	void createWithPhoto() throws ImageStorageException, IOException {
-		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, CONTENT_TYPE,
+		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, MediaType.IMAGE_JPEG_VALUE,
 				Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(PHOTO_NAME)));
 		String name = "createWithPhoto";
 		String surname = "createWithPhoto";
@@ -161,7 +161,7 @@ class CustomerServiceTest {
 
 	@Test
 	void updateFull() throws IOException, ImageStorageException {
-		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, CONTENT_TYPE,
+		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, MediaType.IMAGE_JPEG_VALUE,
 				Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(PHOTO_NAME)));
 		int customerId = UPDATED_CUSTOMER;
 		String name = "updateFull";

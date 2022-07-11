@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.FileSystemUtils;
@@ -35,7 +36,6 @@ import java.util.Optional;
 class ImageServiceTest {
 
 	private static final String PHOTO_NAME = "photo.jpg";
-	private static final String CONTENT_TYPE = "image/jpeg";
 
 	private final ImageStorageService service;
 
@@ -53,7 +53,7 @@ class ImageServiceTest {
 
 	@Test
 	void storeImage() throws IOException, ImageStorageException {
-		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, CONTENT_TYPE,
+		MultipartFile photo = new MockMultipartFile(PHOTO_NAME, PHOTO_NAME, MediaType.IMAGE_JPEG_VALUE,
 				Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(PHOTO_NAME)));
 		String photoUrl = service.storeImage(photo);
 		assertThat(photoUrl).isNotNull().isNotEmpty();
