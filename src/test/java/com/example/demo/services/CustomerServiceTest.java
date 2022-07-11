@@ -42,8 +42,8 @@ class CustomerServiceTest {
 	private static final Random RND = new Random();
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-	public static final int LOWER_BOUND = 5000;
-	public static final int UPPER_BOUND = 10000;
+	private static final int LOWER_BOUND = 5000;
+	private static final int UPPER_BOUND = 10000;
 
 	private static final String USER = "user";
 	private static final String ADMIN = "admin";
