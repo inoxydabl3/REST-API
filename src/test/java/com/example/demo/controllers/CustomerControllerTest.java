@@ -49,7 +49,7 @@ import java.util.Random;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @ActiveProfiles("test")
-class CustomerServiceTest {
+class CustomerControllerTest {
 
     private static final Random RND = new Random();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
