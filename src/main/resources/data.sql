@@ -5,7 +5,12 @@ insert into roles (id, role) values
 
 insert into users (username, password, id_role) values
     ('admin', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 0),   -- (admin, password)
-    ('user', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1)     -- (user, password)
+    ('user', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1),    -- (user, password)
+    ('test', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1),    -- (test, password)
+    ('test2', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1),   -- (test2, password)
+    ('test3', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1),   -- (test3, password)
+    ('test4', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1),   -- (test4, password)
+    ('test5', '$2a$10$rKRGKXVF3T0icaJIkDes9.ovFDuLjPfic/KMmvXSK/1MdwxTQyuuW', 1)    -- (test5, password)
 ;
 
 insert into customers (name, surname, id_user) values

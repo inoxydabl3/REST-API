@@ -6,13 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.jackson.Jacksonized;
 
 import java.io.Serializable;
 
-@Builder(toBuilder = true)
+@Builder
 @Getter
 @ToString
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Jacksonized
 public class UserDTO implements Serializable {
 
     private Integer id;

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
-@Builder(toBuilder = true)
+@Builder
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerCreationDTO {

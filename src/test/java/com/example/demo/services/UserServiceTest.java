@@ -36,8 +36,8 @@ class UserServiceTest {
     public static final int LOWER_BOUND = 5000;
     public static final int UPPER_BOUND = 10000;
 
-    private static final int UPDATED_USER = 1;
-    private static final int DELETED_USER = 2;
+    private static final int UPDATED_USER = 5;
+    private static final int DELETED_USER = 6;
 
     private static int generateRandomInt() {
         return RND.nextInt(UPPER_BOUND - LOWER_BOUND) + LOWER_BOUND;

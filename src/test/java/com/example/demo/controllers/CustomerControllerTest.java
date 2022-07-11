@@ -147,8 +147,7 @@ class CustomerControllerTest {
         String url = properties.getCustomersEndpoint().concat("/").concat(String.valueOf(customerId));
         MvcResult result = mockMvc.perform(get(url).accept(MediaType.APPLICATION_JSON).with(httpBasic(USER, PASSWORD)))
                 .andExpect(status().isOk()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer).isNotNull()
                 .matches(c -> customerId == c.getId(), "customerId");
         log.info("Customer fetched successfully");
@@ -206,8 +205,7 @@ class CustomerControllerTest {
                                 .param(SURNAME, surname)
                                 .with(httpBasic(user, PASSWORD)))
                 .andExpect(status().isCreated()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer).isNotNull()
                 .matches(c -> name.equals(c.getName()), "name")
                 .matches(c -> surname.equals(c.getSurname()), "surname")
@@ -246,8 +244,7 @@ class CustomerControllerTest {
                                 .param(SURNAME, surname)
                                 .with(httpBasic(USER, PASSWORD)))
                 .andExpect(status().isCreated()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer).isNotNull()
                 .matches(c -> name.equals(c.getName()), "name")
                 .matches(c -> surname.equals(c.getSurname()), "surname")
@@ -281,8 +278,7 @@ class CustomerControllerTest {
                                 .param(NAME, name)
                                 .with(httpBasic(ADMIN, PASSWORD)))
                 .andExpect(status().isOk()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer)
                 .matches(c -> customerId == c.getId(), "customerId")
                 .matches(c -> name.equals(c.getName()), "name")
@@ -323,8 +319,7 @@ class CustomerControllerTest {
                                 .param(SURNAME, surname)
                                 .with(httpBasic(user, PASSWORD)))
                 .andExpect(status().isOk()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer)
                 .matches(c -> customerId == c.getId(), "customerId")
                 .matches(c -> name.equals(c.getName()), "name")
@@ -366,8 +361,7 @@ class CustomerControllerTest {
         MvcResult result = mockMvc.perform(delete(url).accept(MediaType.APPLICATION_JSON)
                         .with(httpBasic(ADMIN, PASSWORD)))
                 .andExpect(status().isOk()).andReturn();
-        CustomerDTO customer = objectMapper.readValue(
-                result.getResponse().getContentAsString(), CustomerDTO.class);
+        CustomerDTO customer = objectMapper.readValue(result.getResponse().getContentAsString(), CustomerDTO.class);
         assertThat(customer).isNotNull()
                 .matches(c -> customerId == c.getId(), "customerId");
         log.info("Customer delete successfully");
